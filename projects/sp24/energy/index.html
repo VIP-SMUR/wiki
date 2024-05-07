@@ -1,0 +1,986 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../">
+      
+      
+        <link rel="next" href="../microclimate/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.21">
+    
+    
+      
+        <title>Multivariate Regression of Energy Consumption - Surrogate Modeling for Urban Regeneration</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.66ac8b77.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#multivariate-regression-of-energy-consumption" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Surrogate Modeling for Urban Regeneration" class="md-header__button md-logo" aria-label="Surrogate Modeling for Urban Regeneration" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Surrogate Modeling for Urban Regeneration
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Multivariate Regression of Energy Consumption
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/VIP-SMUR/wiki" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  Projects
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../teams/students/" class="md-tabs__link">
+          
+  
+  Teams
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Surrogate Modeling for Urban Regeneration" class="md-nav__button md-logo" aria-label="Surrogate Modeling for Urban Regeneration" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Surrogate Modeling for Urban Regeneration
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/VIP-SMUR/wiki" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Projects
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Projects
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Projects
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Sp24
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Sp24
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Multivariate Regression of Energy Consumption
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Multivariate Regression of Energy Consumption
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#repository-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Repository Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notebook-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notebook Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#models-and-algorithms-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      Models and Algorithms Used
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Description
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-findings-and-observations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Findings and Observations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../microclimate/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Microclimate
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mobility-1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pedestrian Environment Index (PEI) Project Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mobility-2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Segregation in the 15-Minute City
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Teams
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Teams
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../teams/students/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Student team members
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#repository-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Repository Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notebook-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notebook Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#models-and-algorithms-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      Models and Algorithms Used
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Description
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-findings-and-observations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Findings and Observations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="multivariate-regression-of-energy-consumption">Multivariate Regression of Energy Consumption</h1>
+<h2 id="introduction">Introduction</h2>
+<p>This notebook is part of the repository 'Optimization of Building Energy Consumption' aimed at using machine learning models to optimize building design parameters to minimize energy consumption for heating and cooling. This notebook focuses on multivariate regression to predict both heating and cooling energy loads based on building design parameters.</p>
+<h2 id="repository-overview">Repository Overview</h2>
+<ul>
+<li><strong>Repository</strong>: <a href="https://github.com/tstran155/Optimization-of-building-energy-consumption">Optimization of Building Energy Consumption</a></li>
+<li><strong>File</strong>: Notebook1B_Multivariate_regression_heating_cooling_load_final.ipynb</li>
+</ul>
+<h2 id="notebook-summary">Notebook Summary</h2>
+<p>This notebook includes comprehensive steps for preprocessing, analyzing, and modeling building energy data with the goal of predicting heating and cooling loads. The process includes:
+1. Data loading and initial exploration.
+2. Descriptive statistics to understand the dataset.
+3. Data visualization to infer relationships and data distribution.
+4. Data cleaning and transformation to prepare for modeling.
+5. Model building using various machine learning techniques including Linear Regression, KNN, Support Vector Machine, and a neural network model using Keras.
+6. Evaluation of models using cross-validation and comparison based on mean squared error.
+7. Final model selection and saving the model for future use.</p>
+<h2 id="usage">Usage</h2>
+<p>The notebook is structured to be followed sequentially. Detailed comments and markdown notes provide guidance through each step of the analysis and modeling process.</p>
+<h2 id="models-and-algorithms-used">Models and Algorithms Used</h2>
+<ul>
+<li><strong>Linear Regression</strong></li>
+<li><strong>Random Forest</strong></li>
+<li><strong>KNN (K-Nearest Neighbors)</strong></li>
+<li><strong>Support Vector Machine (SVM)</strong></li>
+<li><strong>Neural Networks (Keras Sequential Model)</strong></li>
+</ul>
+<p>The notebook also discusses the use of early stopping in neural network training to prevent overfitting and improve model generalization.</p>
+<h2 id="data-description">Data Description</h2>
+<p>The dataset used (<code>EPB_data.csv</code>) includes various building parameters such as orientation, area, and glazing area among others, and the target variables are 'Heating Load' and 'Cooling Load'.</p>
+<h2 id="key-findings-and-observations">Key Findings and Observations</h2>
+<ul>
+<li>Multivariate regression can effectively predict energy consumption when appropriate preprocessing and feature engineering are applied.</li>
+<li>The Random Forest algorithm showed superior performance in predicting the energy loads compared to other models.</li>
+<li>Neural Networks provided competitive results, highlighting their potential in complex regression tasks.</li>
+</ul>
+<h2 id="conclusions">Conclusions</h2>
+<p>This notebook serves as a detailed example of using statistical and machine learning methods to predict building energy consumption. The methodologies outlined here can be adapted and expanded for other types of predictive modeling tasks within the building energy domain.</p>
+<h2 id="references">References</h2>
+<ul>
+<li>Tsanas, A. and Xifara, A. (2012). Accurate quantitative estimation of energy performance of residential buildings using statistical machine learning tools. Energy and Buildings, 49, 560-567. DOI: <a href="https://doi.org/10.1016/j.enbuild.2012.03.003">10.1016/j.enbuild.2012.03.003</a></li>
+</ul>
+<h1 id="demand-ninja-energy-demand-forecasting-model">Demand Ninja - Energy Demand Forecasting Model</h1>
+<h2 id="overview">Overview</h2>
+<p>Demand Ninja is a sophisticated tool that provides hourly energy demand forecasts based on environmental data and building characteristics. It employs advanced algorithms and machine learning techniques to predict heating and cooling needs with high accuracy.</p>
+<h2 id="repository-structure">Repository Structure</h2>
+<p>The repository consists of several Python scripts each designed to perform specific roles in the data processing and forecasting pipeline:</p>
+<h3 id="core-scripts">Core Scripts</h3>
+<ul>
+<li><code>core.py</code>: Contains the primary logic for calculating energy demands based on the Building-Adjusted Internal Temperature (BAIT) model.</li>
+<li><code>demand_ninja_example.py</code>: Demonstrates how to use the Demand Ninja model to compute energy demand using custom input data.</li>
+<li><code>geo_json_file.py</code>: Converts processed energy demand data into GeoJSON format for easy integration with geospatial applications.</li>
+<li><code>test_download.py</code>: Automates the downloading of EPW files for various locations using API calls.</li>
+<li><code>epw_to_dataframe.py</code>: Consolidates key weather parameters from multiple EPW files into a single CSV file for easier analysis.</li>
+<li><code>clean_weather_with_demand.py</code>: Cleans and preprocesses weather data combined with demand forecasts to prepare for analysis.</li>
+<li><code>aggregate_data.py</code>: Processes and aggregates weather and energy demand data by geographic coordinates.</li>
+</ul>
+<h2 id="features">Features</h2>
+<ul>
+<li><strong>Energy Demand Forecasting</strong>: Utilize historical weather data and building parameters to forecast energy needs.</li>
+<li><strong>Data Enrichment</strong>: Enhance your datasets with calculated energy demand metrics to aid in further analyses or model training.</li>
+<li><strong>GeoJSON Conversion</strong>: Export your enriched datasets to GeoJSON for use in mapping and other geospatial applications.</li>
+<li><strong>Automated Data Retrieval</strong>: Automatically download weather data required for demand calculations.</li>
+</ul>
+<h2 id="getting-started">Getting Started</h2>
+<p>To start using the Demand Ninja scripts, follow these steps:
+1. Clone the repository to your local machine.
+2. Ensure that all dependencies are installed via <code>pip install -r requirements.txt</code> (ensure you have this file configured based on the scripts needs).
+3. Run the scripts individually as needed:
+   ```bash
+   python demand_ninja_example.py
+   python clean_weather_with_demand.py
+   python geo_json_file.py</p>
+<h2 id="data-requirements">Data Requirements</h2>
+<p>Each script is designed to be modular but certain data standards must be maintained for seamless functionality:
+- Weather data should include key metrics like temperature, humidity, wind speed, and radiation levels.</p>
+<h2 id="credits">Credits</h2>
+<p>Demand Ninja was developed by the Renewables Ninja team, including notable contributions from Iain Staffell, Stefan Pfenninger, and Nathan Johnson.</p>
+<h1 id="rank-5-of-ashrae-great-energy-predictor-iii-gepiii">Rank 5 of ASHRAE Great Energy Predictor III (GEPIII)</h1>
+<h2 id="overview_1">Overview</h2>
+<p>We refer to "rank 5" as the 5th winning solution of the <a href="https://www.kaggle.com/c/ashrae-energy-prediction">ASHRAE Great Energy Predictor III (GEPIII)</a> contest which is hosted on Kaggle. We originally were working on 'rank 1', or the highets ranked solution but decided to first go through 'rank 5' as it had a much quicker time to complete with not as much difference compared to 'rank 1'. Accorrding to ASHRAE, "This competition’s overall objective was to find the most accurate modeling solutions for the prediction of over 41 million private and public test data points." There are many models within the solutions, with many libraries and a need to run on a very, very fast computers. We used GaTech's PACE system to run these jobs. </p>
+<h3 id="rank-5-github-tutorial">Rank 5 GitHub Tutorial</h3>
+<p><a href="https://www.kaggle.com/c/ashrae-energy-prediction/discussion/127086">Rank 5 Kaggle Documentation</a>
+<a href="https://github.com/buds-lab/ashrae-great-energy-predictor-3-solution-analysis/tree/master/solutions/rank-5">Rank 5 Github Walkthrough</a></p>
+<h3 id="directory-structure">Directory Structure</h3>
+<ul>
+<li><code>model</code>: - trained model binary files</li>
+<li><code>output</code>: - model predictions and the final submission file</li>
+<li><code>train_code</code>: - code to train models from scratch</li>
+<li><code>predict_code</code>: - code to generate predictions from model binaries</li>
+<li><code>ensemble_code</code>: - code to ensemble the predictions</li>
+<li><code>preproceeding_code</code>: - code to pre-process the data</li>
+<li><code>prepare_data</code>: - pre-processed data files</li>
+<li><code>external_data</code>: - external files required by this solution such as leak data</li>
+<li><code>requirements.txt</code>: - python package dependencies</li>
+<li><code>SETTINGS.json</code>: - a json configuration file</li>
+</ul>
+<h2 id="issues-with-rank-5">Issues with Rank 5</h2>
+<p>There were many issues running Rank 5, here are some of them and possible solutions
+1. When running on PACE, using sudo is not allowed without special permissions. Hence getting git installed would be hard to do. Instead for ease, just download the files and use PACE ICE onDemand and upload the files onto the instance machine directly, without using git.
+2. The requirements file has a LOT of libraries, many which are outdated and will give compilation errors. You will have to see which ones would work, and whenever an error occurs pip install seperatley and keep running the file. This is tedious. An issue that isnt resolved yet is the complilation problems with the Cython libraries with pandas and others.
+3. The GitHub will ask to make a virtual environment using myenv. In PACE you should use <a href="https://gatech.service-now.com/home?id=kb_article_view&amp;sysparm_article=KB0041621">Ananconda</a>, which comes along with it.
+4. Kaggle API is a bit different with the outdated version of this Kaggle competition. Ther emay be multiple times where you have to uninstall kaggle and reinstall it. <a href="https://github.com/Kaggle/kaggle-api/issues/29">Scroll down here</a>. Issues occurs where the files for Kaggle are not aligned with the process of getting training data. So you would have to download the training data and upload it onto PACE.
+5. There was an issue uploading the training files onto PACE, as it keeps giving an error that it cant upload half of the files. Will have to figure this one out later. </p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["search.highlight", "search.suggest", "search.share", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.instant.preview", "navigation.tabs", "navigation.tabs.sticky"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "tags": {"Energy": "energy", "Microclimate": "microclimate", "Mobility": "mobility"}, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.a7c05c9e.min.js"></script>
+      
+    
+  </body>
+</html>
